@@ -29,23 +29,4 @@ The project relies on a CSV dataset (e.g., `spectral_graffiti_headley_recovered.
   * Drawing a faint line connecting the underlying true wave to demonstrate the signal's physics.
 * **Random Sampling**: Randomly selects and plots audio samples from the dataset to compare differing acoustic structures.
 
-### The method I used here to solve the problem:
 
-To analyze and understand the highly sparse acoustic waveform data, I took a data-centric and visual approach:
-
-1.  **Data Ingestion & Sparsity Calculation:**
-    * Loaded the spectral audio dataset (`spectral_graffiti_headley_recovered.csv`) containing millions of time-step records.
-    * Calculated the exact sparsity of the dataset by evaluating the `Is_Context` flag. By subtracting the mean of this binary mask from 1, I determined that exactly 80.00% of the ground truth signal is missing.
-
-2.  **Signal Separation:**
-    * For any given audio sample (`Sample_ID`), I isolated the time-series sequence and sorted it chronologically by `Time_ms`.
-    * Separated the data into two distinct subsets:
-        * **Context Points:** The 20% intact, known data (`Is_Context == 1`).
-        * **Target Points:** The 80% hidden/missing data (`Is_Context == 0`).
-
-3.  **Acoustic Waveform Visualization:**
-    * Built a robust plotting function (`plot_audio_sample`) using `matplotlib` to reconstruct the physics of the sound wave.
-    * **Blue Dots:** Mapped the known context points to show the fragmented data the model will actually "see".
-    * **Red Crosses:** Overlaid the hidden ground-truth targets to clearly highlight the massive gaps in the acoustic signal.
-    * **Underlying Wave:** Drew a faint, continuous reference line through all points to visualize the true trajectory and physics of the original voltage amplitude.
-    * Finally, I randomly sampled multiple audio IDs to visually compare the differing acoustic structures across the dataset.
